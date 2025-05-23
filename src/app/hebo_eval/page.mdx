@@ -1,0 +1,140 @@
+## Hebo Eval CLI
+
+Hebo Eval is a powerful command-line tool for evaluating and testing language models. It provides a robust framework for running evaluations against your AI agents and generating detailed reports.
+
+### Installation
+
+```bash
+npm install -g hebo-eval
+```
+
+### Basic Usage
+
+```bash
+hebo-eval run <agent> [options]
+```
+
+### Command Options
+
+| Option | Description | Default |
+|--------|-------------|---------|
+| `-d, --directory <path>` | Directory containing test cases | `./examples` |
+| `-c, --config <path>` | Path to configuration file | - |
+| `-t, --threshold <number>` | Score threshold for passing (0-1) | `0.3` |
+| `-f, --format <format>` | Output format (json\|markdown\|text) | `text` |
+| `-s, --stop-on-error` | Stop processing on first error | `false` |
+| `-m, --max-concurrency <number>` | Maximum number of concurrent test executions | `5` |
+
+### Configuration
+
+You can configure Hebo Eval in two ways:
+
+1. **Environment Variables**:
+   ```bash
+   export HEBO_AGENT_API_KEY=your_api_key_here
+   ```
+
+2. **Configuration File**:
+   Create a JSON configuration file (e.g., `config.json`):
+   ```json
+   {
+     "embedding": {
+       "provider": "hebo",
+       "model": "hebo-embedding",
+       "apiKey": "your_hebo_embeddings_key",
+       "baseUrl": "https://api.hebo.ai"
+     },
+     "agent": {
+       "agentKey": "your_hebo_agent_key",
+       "baseUrl": "https://app.hebo.ai"
+     }
+   }
+   ```
+
+### Test cases
+
+By default hebo-eval will evaluate your agent on pre-writtern test cases provided with hebo-eval
+
+To use your own test cases follow these instructions:
+
+1. Create a directory for your test cases.
+
+2. Write your test cases as ```.txt``` files
+
+3. In the test case itself you can use the following format:
+
+```filename="example.txt"
+User: Hi there!
+Assistant: Hello! How can I assist you today?
+
+User: Could you check the current weather in New York for me?
+Assistant: Of course! Let me look that up for you.
+tool use: weather_search args: {"location": "New York, NY"}
+tool response: New York, NY – 59°F, Rain (80% chance), 96% humidity, 2 mph wind
+
+Assistant: It’s rainy in New York today with a temperature of 59°F. There’s an 80% chance of rain, high humidity (96%), and a light breeze at 2 mph. You might want to bring an umbrella!
+
+User: Can you simplify that for me?
+Assistant: Sure! It’s rainy and cool (59°F) in New York right now. Expect wet weather and a light breeze.
+```
+
+
+
+### Example Usage
+
+1. **Basic Evaluation**:
+   ```bash
+   hebo-eval run gato-qa:v1
+   ```
+
+2. **Custom Directory and Format**:
+   ```bash
+   hebo-eval run gato-qa:v1 -d ./my-tests -f markdown
+   ```
+
+3. **With Configuration File**:
+   ```bash
+   hebo-eval run gato-qa:v1 -c ./config.json
+   ```
+
+4. **Custom Threshold and Concurrency**:
+   ```bash
+   hebo-eval run gato-qa:v1 -t 0.5 -m 10
+   ```
+
+### Output Formats
+
+The tool supports three output formats:
+
+- `text`: Human-readable text format
+- `markdown`: Markdown formatted report
+- `json`: JSON structured data
+
+### Error Handling
+
+- The tool will automatically log any errors that occur during evaluation
+- Use `--stop-on-error` to halt execution on the first error
+- Failed test cases are clearly marked in the output
+
+### Best Practices
+
+1. Always set up your API keys before running evaluations
+2. Start with a small test set before running large evaluations
+3. Always ensure your custom test cases end with ```user:``` followed by an ```assistant:``` response as the assistant will be used as the reference answer to the test case.
+4. Keep your configuration file secure and never commit it to version control
+
+### Troubleshooting
+
+If you encounter the "HEBO_API_KEY is required" error:
+
+1. Verify your environment variables:
+   ```bash
+   export HEBO_API_KEY=your_api_key_here
+   ```
+
+2. Or use a configuration file:
+   ```bash
+   hebo-eval run <agent> --config path/to/config.json
+   ```
+
+
