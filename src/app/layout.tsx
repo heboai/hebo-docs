@@ -1,12 +1,13 @@
 import Image from 'next/image'
 import { Footer, Layout, Navbar } from 'nextra-theme-docs'
-import { Banner, Head } from 'nextra/components'
+import { Banner, Head, Search } from 'nextra/components'
 import { getPageMap } from 'nextra/page-map'
 import 'nextra-theme-docs/style.css'
  
 export const metadata = {
   title: 'Hebo Documentation',
   description: 'Hebo Documentation',
+  metadataBase: new URL('https://docs.hebo.ai'),
   icons: {
     icon: [
       { url: '/favicon.ico' },
@@ -41,14 +42,15 @@ const banner = <Banner storageKey="some-key">Hebo Evals is  finally released ðŸŽ
 const navbar = (
   <Navbar
     logo={<div style={{display: 'flex', alignItems: 'center', gap: '10px', flexDirection: 'row', justifyContent: 'center'}}>
-        <b>Hebo</b> <Image src="/hebo icon.png" alt="Hebo" width={15} height={15}/></div>}
+        <b>Hebo AI</b> <Image src="/hebo icon.png" alt="Hebo" width={15} height={15}/></div>}
     logoLink="/"
     projectLink='https://github.com/heboai/hebo'
     chatLink='https://discord.com/invite/cCJtXZRU5p'
   />
 )
 const footer = <Footer>All rights reserved. {new Date().getFullYear()} Â© Hebo.</Footer>
- 
+const search = <Search placeholder="Search Hebo Docs..."></Search> 
+
 export default async function RootLayout({ children }: {
   children: React.ReactNode
 }) {
@@ -61,11 +63,7 @@ export default async function RootLayout({ children }: {
       // Suggested by `next-themes` package https://github.com/pacocoursey/next-themes#with-app
       suppressHydrationWarning
     >
-      <Head
-      // ... Your additional head options
-      >
-        {/* Your additional tags should be passed as `children` of `<Head>` element */}
-      </Head>
+      <Head/>
       <body>
         <Layout
           banner={banner}
@@ -73,6 +71,7 @@ export default async function RootLayout({ children }: {
           pageMap={await getPageMap()}
           docsRepositoryBase="https://github.com/heboai/hebo-docs"
           footer={footer}
+          search={search}
           // ... Your additional layout options
         >
           {children}  
