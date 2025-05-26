@@ -16,8 +16,28 @@ Make sure you have the following installed:
 Clone the repository and install dependencies:
 
 ```bash
-git clone https://github.com/your-username/your-nextjs-project.git
-cd your-nextjs-project
+git clone https://github.com/heboai/hebo-docs.git
+cd hebo-docs
 npm install
 # or
 yarn install
+```
+### 🚀 Running the Development Server
+
+```bash
+npm run dev
+# or
+yarn dev
+```
+
+### 🛠️ Contributing
+
+```bash
+git fork https://github.com/heboai/hebo-docs.git
+```
+
+Then open a pull request.
+
+### License
+MIT License
+
