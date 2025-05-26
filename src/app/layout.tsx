@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import { Footer, Layout, Navbar } from 'nextra-theme-docs'
 import { Banner, Head } from 'nextra/components'
 import { getPageMap } from 'nextra/page-map'
@@ -40,7 +41,7 @@ const banner = <Banner storageKey="some-key">Hebo Evals is  finally released ðŸŽ
 const navbar = (
   <Navbar
     logo={<div style={{display: 'flex', alignItems: 'center', gap: '10px', flexDirection: 'row', justifyContent: 'center'}}>
-        <b>Hebo</b> <img src="/hebo icon.png" alt="Hebo" width={15} height={15} style={{borderRadius: '50%'}}/></div>}
+        <b>Hebo</b> <Image src="/hebo icon.png" alt="Hebo" width={15} height={15} style={{borderRadius: '50%'}}/></div>}
     logoLink="/"
     projectLink='https://github.com/heboai/hebo'
     chatLink='https://discord.com/invite/cCJtXZRU5p'
@@ -51,7 +52,6 @@ const footer = <Footer>All rights reserved. {new Date().getFullYear()} Â© Hebo.<
 export default async function RootLayout({ children }: {
   children: React.ReactNode
 }) {
-  const pageMap = await getPageMap()
   return (
     <html
       // Not required, but good for SEO
