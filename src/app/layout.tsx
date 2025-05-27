@@ -23,7 +23,7 @@ export const metadata = {
     description: 'Hebo Documentation',
     images: [
       {
-        url: '/hebo icon.png',
+        url: '/hebo-icon.png',
         width: 1200,
         height: 630,
         alt: 'Hebo Documentation',
@@ -34,15 +34,15 @@ export const metadata = {
     card: 'summary_large_image',
     title: 'Hebo Docs',
     description: 'Hebo Documentation',
-    images: ['/hebo icon.png'],
+    images: ['/hebo-icon.png'],
   },
 }
  
-const banner = <Banner storageKey="some-key">Hebo Evals is  finally released 🎉</Banner>
+const banner = <Banner storageKey="hebo-evals-release-banner">Hebo Evals is  finally released 🎉</Banner>
 const navbar = (
   <Navbar
     logo={<div style={{display: 'flex', alignItems: 'center', gap: '10px', flexDirection: 'row', justifyContent: 'center'}}>
-        <b>Hebo AI</b> <Image src="/hebo icon.png" alt="Hebo" width={15} height={15}/></div>}
+        <b>Hebo AI</b> <Image src="/hebo-icon.png" alt="Hebo" width={15} height={15}/></div>}
     logoLink="/"
     projectLink='https://github.com/heboai/hebo'
     chatLink='https://discord.com/invite/cCJtXZRU5p'
