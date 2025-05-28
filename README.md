@@ -29,75 +29,67 @@ This site uses [Pagefind](https://pagefind.app/) for search functionality. Pagef
 
 3. The search UI is provided by `@pagefind/default-ui` package.
 
-### Development
-
-- During development, the search functionality is available but the index is only generated during the build process.
-- To update the search index, run `npm run build` which will trigger the Pagefind index generation.
-
 ### Customization
 
 The search functionality can be customized by modifying the Pagefind configuration in your code. Refer to the [Pagefind documentation](https://pagefind.app/docs/) for available options.
 
 ## Getting Started
 
-1. Install dependencies:
-   ```bash
-   npm install
-   ```
-
-2. Run the development server:
-   ```bash
-   npm run dev
-   ```
-
-3. Build for production:
-   ```bash
-   npm run build
-   ```
-
-4. Start the production server:
-   ```bash
-   npm start
-   ```
-
-### 🚀 Getting Started
-
 ### Prerequisites
-
-Make sure you have the following installed:
 
 - [Node.js](https://nodejs.org/) (Recommended version: `18.x` or higher)
 - [npm](https://www.npmjs.com/) or [yarn](https://yarnpkg.com/)
+- [SST CLI](https://sst.dev/docs/installation) installed globally:
+  ```bash
+  npm install -g sst
+  ```
 
-### 📦 Installation
+### Installation
 
-Clone the repository and install dependencies:
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/heboai/hebo-docs.git
+   cd hebo-docs
+   ```
 
+2. Install dependencies:
+   ```bash
+   npm install
+   # or
+   yarn install
+   ```
+
+### Development
+
+Start the SST development environment:
 ```bash
-git clone https://github.com/heboai/hebo-docs.git
-cd hebo-docs
-npm install
-# or
-yarn install
+   sst dev
 ```
 
-### 🚀 Running the Development Server
+### Deployment
+
+The project is deployed using SST.dev with AWS and Cloudflare DNS. The deployment is configured in `sst.config.ts`.
+
+#### Manual Deployment
+
+To deploy manually:
 
 ```bash
-npm run dev
-# or
-yarn dev
+sst deploy --stage TARGET_ENV
 ```
 
-### 🛠️ Contributing
+#### Automated Deployment
 
-Fork the repo
-```bash
-https://github.com/heboai/hebo-docs.git
-```
+The project uses GitHub Actions for automated deployments. When changes are merged into the main branch, the workflow automatically:
 
-Then open a pull request.
+1. Builds the Next.js application
+2. Deploys to AWS using SST
+3. Updates Cloudflare DNS records
 
-### License
-MIT License
+The deployment is configured to use the custom domain `docs.hebo.ai`.
 
+### Contributing
+
+1. Fork the repository
+2. Create your feature branch
+3. Submit a pull request
