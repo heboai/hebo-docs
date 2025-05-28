@@ -14,7 +14,8 @@ export const metadata = {
       { url: '/favicon-32x32.png', sizes: '32x32', type: 'image/png' }
     ],
     apple: [
-      { url: '/favicon-32x32.png', sizes: '32x32', type: 'image/png' }
+      { url: '/apple-touch-icon.png', sizes: '180x180', type: 'image/png' },
+      { url: '/apple-touch-icon-precomposed.png', sizes: '180x180', type: 'image/png' }
     ],
     shortcut: ['/favicon.ico']
   },
@@ -23,18 +24,18 @@ export const metadata = {
     description: 'Hebo Documentation',
     images: [
       {
-        url: '/hebo-icon.png',
+        url: 'https://hebo.ai/og-image.png',
         width: 1200,
         height: 630,
-        alt: 'Hebo Documentation',
-      },
+        alt: 'Hebo AI Documentation'
+      }
     ],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Hebo Docs',
     description: 'Hebo Documentation',
-    images: ['/hebo-icon.png'],
+    images: ['https://hebo.ai/og-image.png'],
   },
 }
  

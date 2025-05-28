@@ -36,6 +36,7 @@ You can configure Hebo Eval in two ways:
 1. **Environment Variables**:
    ```bash
    export HEBO_AGENT_API_KEY=your_api_key_here
+   export HEBO_AGENT_PROVIDER=provider
    ```
 
 2. **Configuration File**:
@@ -46,11 +47,10 @@ You can configure Hebo Eval in two ways:
        "provider": "hebo",
        "model": "hebo-embedding",
        "apiKey": "your_hebo_embeddings_key",
-       "baseUrl": "https://api.hebo.ai"
      },
      "agent": {
        "agentKey": "your_hebo_agent_key",
-       "baseUrl": "https://app.hebo.ai"
+       "provider":"hebo",
      }
    }
    ```
@@ -128,6 +128,11 @@ The tool supports three output formats:
 4. Keep your configuration file secure and never commit it to version control
 
 ### Troubleshooting
+
+To enable debug mode, use the `--verbose` flag.
+
+Example usage:
+
 
 If you encounter the "HEBO_API_KEY is required" error:
 
