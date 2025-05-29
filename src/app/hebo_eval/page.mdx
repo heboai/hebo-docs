@@ -24,7 +24,7 @@ hebo-eval run <agent> [options]
 |--------|-------------|---------|
 | `-d, --directory <path>` | Directory containing test cases | `./examples` |
 | `-c, --config <path>` | Path to configuration file | - |
-| `-t, --threshold <number>` | Score threshold for passing (0-1) | `0.3` |
+| `-t, --threshold <number>` | Score threshold for passing (0-1) | `0.8` |
 | `-f, --format <format>` | Output format (json\|markdown\|text) | `text` |
 | `-s, --stop-on-error` | Stop processing on first error | `false` |
 | `-m, --max-concurrency <number>` | Maximum number of concurrent test executions | `5` |
@@ -73,10 +73,8 @@ Assistant: Hello! How can I assist you today?
 
 User: Could you check the current weather in New York for me?
 Assistant: Of course! Let me look that up for you.
-tool use: weather_search args: {"location": "New York, NY"}
-tool response: New York, NY – 59°F, Rain (80% chance), 96% humidity, 2 mph wind
 
-Assistant: It’s rainy in New York today with a temperature of 59°F. There’s an 80% chance of rain, high humidity (96%), and a light breeze at 2 mph. You might want to bring an umbrella!
+It’s rainy in New York today with a temperature of 59°F. There’s an 80% chance of rain, high humidity (96%), and a light breeze at 2 mph. You might want to bring an umbrella!
 
 User: Can you simplify that for me?
 Assistant: Sure! It’s rainy and cool (59°F) in New York right now. Expect wet weather and a light breeze.
