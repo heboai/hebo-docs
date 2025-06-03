@@ -9,7 +9,7 @@ Hebo Eval is a powerful command-line tool for evaluating and testing language mo
 ### Installation
 
 ```bash
-npm install -g hebo-eval
+npm install -g hebo-eval@latest
 ```
 
 ### Basic Usage
@@ -79,9 +79,6 @@ Assistant: Hello! How can I assist you today?
 ---
 # Weather Query Test
 User: Could you check the current weather in New York for me?
-tool use: weather_search args: {"location": "New York, NY"}
-tool response: New York, NY – 59°F, Rain (80% chance), 96% humidity, 2 mph wind
-
 Assistant: It's rainy in New York today with a temperature of 59°F. There's an 80% chance of rain, high humidity (96%), and a light breeze at 2 mph. You might want to bring an umbrella!
 ```
 
