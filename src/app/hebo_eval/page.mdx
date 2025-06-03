@@ -9,7 +9,7 @@ Hebo Eval is a powerful command-line tool for evaluating and testing language mo
 ### Installation
 
 ```bash
-npm install -g hebo-eval@latest
+npm install -g hebo-eval
 ```
 
 ### Basic Usage
@@ -28,6 +28,7 @@ hebo-eval run <agent> [options]
 | `-f, --format <format>` | Output format (json\|markdown\|text) | `text` |
 | `-s, --stop-on-error` | Stop processing on first error | `false` |
 | `-m, --max-concurrency <number>` | Maximum number of concurrent test executions | `5` |
+| `--verbose` | Show detailed output for all test cases | `false` |
 
 ### Configuration
 
@@ -36,7 +37,6 @@ You can configure Hebo Eval in two ways:
 1. **Environment Variables**:
    ```bash
    export HEBO_AGENT_API_KEY=your_api_key_here
-   export HEBO_AGENT_PROVIDER=provider
    ```
 
 2. **Configuration File**:
@@ -50,36 +50,102 @@ You can configure Hebo Eval in two ways:
      },
      "agent": {
        "agentKey": "your_hebo_agent_key",
-       "provider":"hebo",
+       "provider": "hebo"
      }
    }
    ```
 
-### Test cases
+### Test Cases
 
-By default hebo-eval will evaluate your agent on pre-writtern test cases provided with hebo-eval
+Hebo Eval supports a flexible test case structure that allows you to organize and manage your test cases effectively.
 
-To use your own test cases follow these instructions:
+#### Test Case Structure
 
-1. Create a directory for your test cases.
+1. **Multiple Test Cases in One File**:
+   - Test cases can be defined in a single file, separated by `---`
+   - Each test case starts with a title using `# Test Case Name` format
 
-2. Write your test cases as ```.txt``` files
+2. **Directory Organization**:
+   - Test cases can be organized in subdirectories
+   - All test cases in subdirectories are automatically discovered and executed
 
-3. In the test case itself you can use the following format:
+#### Test Case Format
 
-```filename="example.txt"
+```text
+# Basic Conversation Test
 User: Hi there!
 Assistant: Hello! How can I assist you today?
 
+---
+# Weather Query Test
 User: Could you check the current weather in New York for me?
-Assistant: Of course! Let me look that up for you.
+tool use: weather_search args: {"location": "New York, NY"}
+tool response: New York, NY – 59°F, Rain (80% chance), 96% humidity, 2 mph wind
 
-It’s rainy in New York today with a temperature of 59°F. There’s an 80% chance of rain, high humidity (96%), and a light breeze at 2 mph. You might want to bring an umbrella!
-
-User: Can you simplify that for me?
-Assistant: Sure! It’s rainy and cool (59°F) in New York right now. Expect wet weather and a light breeze.
+Assistant: It's rainy in New York today with a temperature of 59°F. There's an 80% chance of rain, high humidity (96%), and a light breeze at 2 mph. You might want to bring an umbrella!
 ```
 
+#### Directory Structure Example
+
+```
+tests/
+├── basic/
+│   ├── conversations.txt
+│   └── simple_queries.txt
+├── advanced/
+│   ├── tool_usage.txt
+│   └── complex_scenarios.txt
+└── main.txt
+```
+
+### Output Format
+
+The tool supports three output formats with different verbosity levels:
+
+#### Default Output (Concise)
+```
+Passed examples/more tests/test/Silly math
+Passed examples/example/First Test Case
+Passed examples/more tests/test/Math
+Passed examples/math/math
+Passed examples/example/Second Test Case
+Passed examples/example/Third Test Case
+Failed examples/stocks/stocks
+Passed examples/news/news
+Passed examples/translation/translation
+Passed examples/weather/weather
+
+Failed Test Details
+=================
+examples/stocks/stocks
+Status: Failed
+Score: 0.398
+Time: 16694.51ms
+
+Input:
+user: what's the current price of Apple stock?
+assistant: I'll check the current stock price
+Apple's stock (AAPL) is currently trading at USD175.25, up 2.3 percent today
+user: can you write that again in simple terms?
+
+Expected Output:
+assistant: something something someting in simple terms
+
+Actual Response:
+Sure, I can rephrase that in simpler terms:
+
+Apple's shares cost $175.25 each right now. The price went up a bit today.
+
+Error:
+Response mismatch
+
+Test Summary
+============
+Total: 10
+Passed: 9
+Failed: 1
+Duration: 50.54s
+```
 
 
 ### Example Usage
@@ -104,33 +170,21 @@ Assistant: Sure! It’s rainy and cool (59°F) in New York right now. Expect wet
    hebo-eval run gato-qa:v1 -t 0.5 -m 10
    ```
 
-### Output Formats
-
-The tool supports three output formats:
-
-- `text`: Human-readable text format
-- `markdown`: Markdown formatted report
-- `json`: JSON structured data
-
-### Error Handling
-
-- The tool will automatically log any errors that occur during evaluation
-- Use `--stop-on-error` to halt execution on the first error
-- Failed test cases are clearly marked in the output
+5. **Verbose Output**:
+   ```bash
+   hebo-eval run gato-qa:v1 --verbose
+   ```
 
 ### Best Practices
 
 1. Always set up your API keys before running evaluations
 2. Start with a small test set before running large evaluations
-3. Always ensure your custom test cases end with ```user:``` followed by an ```assistant:``` response as the assistant will be used as the reference answer to the test case.
-4. Keep your configuration file secure and never commit it to version control
+3. Use descriptive test case titles with the `#` format
+4. Organize test cases in subdirectories for better management
+5. Keep your configuration file secure and never commit it to version control
+6. Use the `--verbose` flag when debugging test failures
 
 ### Troubleshooting
-
-To enable debug mode, use the `--verbose` flag.
-
-Example usage:
-
 
 If you encounter the "HEBO_API_KEY is required" error:
 
