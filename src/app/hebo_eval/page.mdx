@@ -73,14 +73,26 @@ Hebo Eval supports a flexible test case structure that allows you to organize an
 
 ```text
 # Basic Conversation Test
+System: You are a helpful assistant that specializes in customer service.
 User: Hi there!
 Assistant: Hello! How can I assist you today?
 
 ---
 # Weather Query Test
+System: You are a weather assistant that provides detailed weather information.
 User: Could you check the current weather in New York for me?
 Assistant: It's rainy in New York today with a temperature of 59°F. There's an 80% chance of rain, high humidity (96%), and a light breeze at 2 mph. You might want to bring an umbrella!
 ```
+
+#### System Messages
+
+The test case parser supports system messages that can be used to set the context or behavior of the AI agent. System messages:
+
+- Ability to start with `System:` followed by the message content
+- Can only appear at the start of a conversation
+- Are handled differently by different agent types:
+  - **OpenAI Agents**: System messages are included in the message history and sent as the first message in the API request
+  - **Hebo Agents**: System messages are ignored with a warning message ("System messages are not supported by Hebo agents and will be ignored.")
 
 #### Directory Structure Example
 
@@ -180,6 +192,11 @@ Duration: 50.54s
 4. Organize test cases in subdirectories for better management
 5. Keep your configuration file secure and never commit it to version control
 6. Use the `--verbose` flag when debugging test failures
+7. When using system messages:
+   - Place them at the start of each test case
+   - Keep them concise and focused on the specific test scenario
+   - Be aware that they will be ignored by Hebo agents
+   - Use them to set clear expectations for OpenAI agent behavior
 
 ### Troubleshooting
 
