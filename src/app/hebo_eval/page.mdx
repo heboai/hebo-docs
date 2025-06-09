@@ -84,6 +84,39 @@ User: Could you check the current weather in New York for me?
 Assistant: It's rainy in New York today with a temperature of 59°F. There's an 80% chance of rain, high humidity (96%), and a light breeze at 2 mph. You might want to bring an umbrella!
 ```
 
+#### Markdown Test Cases
+
+Hebo Eval supports test cases written in markdown format, which is particularly useful for code review and technical discussions. Markdown test cases support:
+
+- Code blocks with syntax highlighting
+- Lists and formatting
+- Multi-turn conversations with code examples
+- Detailed explanations and responses
+
+Example of a markdown test case:
+
+```markdown
+# Simple Code Example
+
+user: Can you show me how to write a function that doubles a number?
+
+
+function double(n: number): number {
+  return n * 2;
+}
+
+
+assistant: Here's a simple function that doubles a number:
+
+function double(n: number): number {
+  return n * 2;
+}
+
+This function takes a number as input and returns its double. For example, `double(5)` returns `10`.
+```
+
+
+
 #### Directory Structure Example
 
 ```
