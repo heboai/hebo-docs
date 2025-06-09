@@ -84,6 +84,117 @@ User: Could you check the current weather in New York for me?
 Assistant: It's rainy in New York today with a temperature of 59°F. There's an 80% chance of rain, high humidity (96%), and a light breeze at 2 mph. You might want to bring an umbrella!
 ```
 
+#### Special Characters and Multiline Messages
+
+When writing test cases, it's important to understand how to handle special characters and multiline messages correctly. Here's a comprehensive guide:
+
+#### Special Characters
+
+The following characters have special meaning in test cases:
+
+| Character | Usage | Example |
+|-----------|-------|---------|
+| `:` | Role marker delimiter | `user:`, `assistant:`, `system:` |
+| `#` | Test case title | `# My Test Case` |
+| `---` | Test case separator | Used between test cases |
+
+#### Escaping Special Characters
+
+To include literal special characters in your messages, you can use them directly in the message content. The parser will only interpret these characters as special when they appear in specific contexts:
+
+- `:` is only special when it appears after a role marker
+- `#` is only special when it appears at the start of a line
+- `---` is only special when it appears on its own line
+
+Examples:
+```text
+# Special Characters Example
+user: The price is $10:50
+assistant: That's correct! The colon (:) is just part of the price.
+
+user: Here's a markdown heading: # Important Note
+assistant: The # symbol is just part of the text here.
+
+user: The separator looks like this: ---
+assistant: Yes, that's just three hyphens in the text.
+```
+
+#### Multiline Message Format
+
+Hebo Eval supports two styles of multiline messages:
+
+1. **Indented Style**:
+   ```text
+   user: This is a multiline message
+         that continues on the next line
+         with proper indentation
+   ```
+
+2. **Non-indented Style**:
+   ```text
+   user: This is another multiline message
+   that continues on the next line
+   without indentation
+   ```
+
+Both styles are valid and will be parsed correctly. Choose the style that best fits your needs.
+
+#### Code Examples with Multiline Messages
+
+Here are some common scenarios:
+
+1. **Basic Conversation with Multiline**:
+   ```text
+   user: Please explain how to use a for loop
+         in JavaScript with an example.
+
+   assistant: Here's how to use a for loop in JavaScript:
+
+   for (let i = 0; i < 5; i++) {
+     console.log(i);
+   }
+
+   This loop will print numbers 0 to 4.
+   ```
+
+2. **System Message with Configuration**:
+   ```text
+   system: You are a helpful assistant.
+          You should always be polite and professional.
+          You can use tools when necessary.
+
+   user: Hello!
+
+   assistant: Hi there! How can I help you today?
+   ```
+
+3. **Complex Code Review**:
+   ```text
+   user: Can you review this code?
+   
+   function calculateTotal(items) {
+     let total = 0;
+     for (let item of items) {
+       total += item.price;
+     }
+     return total;
+   }
+
+   assistant: Here's my review of your code:
+
+   1. The function is well-structured and clear
+   2. Consider adding input validation
+   3. You might want to handle edge cases
+   ```
+
+#### Best Practices for Multiline Messages
+
+1. Be consistent with your chosen style (indented or non-indented)
+2. Use proper indentation when including code blocks
+3. Keep messages readable and well-formatted
+4. Use empty lines to separate different parts of a message when needed
+5. When including code, use appropriate code block formatting
+
 #### Markdown Test Cases
 
 Hebo Eval supports test cases written in markdown format, which is particularly useful for code review and technical discussions. Markdown test cases support:
@@ -101,16 +212,15 @@ Example of a markdown test case:
 user: Can you show me how to write a function that doubles a number?
 
 
-function double(n: number): number {
+```function double(n: number): number {
   return n * 2;
-}
+}```
 
 
 assistant: Here's a simple function that doubles a number:
-
-function double(n: number): number {
+```function double(n: number): number {
   return n * 2;
-}
+}```
 
 This function takes a number as input and returns its double. For example, `double(5)` returns `10`.
 ```
