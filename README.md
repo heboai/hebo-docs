@@ -68,7 +68,7 @@ Start the SST development environment:
 
 ### Deployment
 
-The project is deployed using SST.dev with AWS and Cloudflare DNS. The deployment is configured in `sst.config.ts`.
+The project is deployed using SST.dev with AWS. The deployment is configured in `sst.config.ts`.
 
 #### Manual Deployment
 
@@ -84,12 +84,5 @@ The project uses GitHub Actions for automated deployments. When changes are merg
 
 1. Builds the Next.js application
 2. Deploys to AWS using SST
-3. Updates Cloudflare DNS records
 
 The deployment is configured to use the custom domain `docs.hebo.ai`.
-
-### Contributing
-
-1. Fork the repository
-2. Create your feature branch
-3. Submit a pull request
